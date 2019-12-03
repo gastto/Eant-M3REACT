@@ -1,0 +1,92 @@
+<!doctype html>
+	<html lang="es-AR">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<title>Aprendiendo sobre Componentes</title>
+		<style>
+		
+		.slide {
+				position: absolute;
+				animation: fade 8s ease-in-out infinite 4s alternate;
+			}
+			@keyframes fade {
+				  0% { opacity: 1 }
+				 50% { opacity: 0 }
+				100% { opacity: 0 }
+			}
+		
+		</style>
+	</head>
+	<body>
+		<h1>Aprendiendo sobre Componentes</h1>
+
+		<main id="app">
+
+		</main>
+
+		<!-- Optional JavaScript -->
+		<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+		<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+		<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+		<script type="text/babel">
+		
+		class Producto extends React.Component {
+
+			render(){
+				return(
+
+					<div className="card">
+						<img src={`http://lorempixel.com/480/320/${this.props.categoria}`} className="card-img-top" alt="..." />
+						<div className="card-body">
+							<h5 className="card-title">{this.props.nombre}</h5>
+							<p className="card-text">${this.props.precio} | {this.props.stock} unid.</p>
+							<a href="#" className="btn btn-primary">Comprar</a>
+						</div>
+					</div>
+
+				)
+			}
+
+		}
+		
+		
+		//////////////////////////////////
+		class Catalogo extends React.Component {
+			render(){
+
+				return(
+
+					<div className="row">
+					
+						<div className="col-4">
+							{
+								this.props.productos.map( (producto, index) => <Producto nombre={producto.n} stock={producto.s} precio={producto.p} categoria={producto.c} key={index} /> )
+							}
+						</div>	
+				
+					</div>
+				)
+				
+			}
+		}
+
+
+		////////////////////////////////// 
+
+		let datos = [
+			{ n: "Café", s: 500, p: 89.99, c: "nature" },
+			{ n: "Jugo", s: 400, p: 38.99, c: "food" },
+			{ n: "Agua", s: 250, p: 69.99, c: "cats" }
+		]
+
+		ReactDOM.render(<Catalogo productos={datos}/>, document.querySelector("#app"))
+		
+		
+		</script>
+
+	</body>
+</html>
