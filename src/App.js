@@ -4,7 +4,7 @@ import Logo from './components/Logo'
 import Menu from './components/menu'
 import Mapa from './components/mapa'
 import Video from './components/video/Video'
-import Producto from './components/Producto'
+import Gondola from './components/Gondola/index'
 
 const links = [
   { url: "https://reactjs.org", blank: true, text: "Documentation" },
@@ -15,6 +15,7 @@ const links = [
 // desafio 4
 // Traer los datos de la API desde APP y usarlos para <Producto />
 
+
 class App extends Component {
 
   constructor(){
@@ -23,14 +24,16 @@ class App extends Component {
         isLoaded : false
     }
   }
-      componentDidMount(){
-        //fetch(OBTENCION).then(CONVERSION).then(UTILIZACION)
-        fetch("https://api.myjson.com/bins/1giaf3")
-        .then(rta => rta.json())
-        .then( data => {
-          this.setState({ productos : data })
-        })
-      }
+    componentDidMount(){
+      //fetch(OBTENCION).then(CONVERSION).then(UTILIZACION)
+      fetch("https://api.myjson.com/bins/1giaf3")
+      .then(rta => rta.json())
+      .then( data => {
+        this.setState({ productos : data, isLoaded: true })
+      })
+    }
+
+
 
   render(){
     return (
@@ -42,11 +45,11 @@ class App extends Component {
           <Mapa lat="-15.6078602" long="-42.383111" zoom="11900" />
           <Video id="3B_TQrcgSDo" play="no" />
 
-        if( !this.state.isLoaded){
-          <p>Cargando</p>
-        }else{
-          <Producto /> 
-        }
+        {/* Desafio V:
+          Crear los X productos segun cant. de items + asignacion de datos al componente Producto
+        */}
+
+        { !this.state.isLoaded ? <p>Cargando</p> : <Gondola productos={this.state.productos} /> }
 
 
         </header>

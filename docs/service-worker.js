@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Eant-M3REACT/precache-manifest.9ef7586f87582dd85e29d3fb038fb212.js"
+  "/Eant-M3REACT/precache-manifest.308906d1f5d9bc0e4a4b2487a2a0f5b4.js"
 );
 
 self.addEventListener('message', (event) => {

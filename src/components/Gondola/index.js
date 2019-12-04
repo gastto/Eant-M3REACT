@@ -1,5 +1,31 @@
 import React from 'react'
 
+class Gondola extends React.Component {
+
+    //1) antes de nacer el componente
+    constructor(){
+        super()
+        this.state = {
+            isLoaded: false
+        }
+    }
+    
+    //2) Antes de "montar" el componente en el Virtual DOM
+    componentDidMount(){ // ideal para operaciones asincrónicas (AJAX)
+        this.setState({ ...this.props.datos, isLoaded:true })
+    }
+
+    //4) Mostrar el componente montado en el Real DOM
+    render(){
+        
+    return <div>{this.props.productos.map((e,i) => <Producto datos={e} key={i} />)}</div>
+    }
+    
+}
+
+
+
+
 class Producto extends React.Component {
 
     //1) antes de nacer el componente
@@ -17,19 +43,7 @@ class Producto extends React.Component {
         //     this.setState({ isLoaded : true })
         // }, 5000)
 
-        fetch("https://api.myjson.com/bins/1giaf3").then(rta => {
-
-            let datos = rta.json()
-
-            datos.then(productos => {
-
-                productos[0].precio *= 69
-
-                this.setState({ ...productos[0], isLoaded: true })
-
-            })
-
-        })
+        this.setState({ ...this.props.datos, isLoaded:true })
 
     }
 
@@ -54,11 +68,19 @@ class Producto extends React.Component {
 
         } else {
 
-            return <cite>Soy un producto llamado {this.state.nombre} y valgo ARS {this.state.precio}...</cite>
+            return <cite onClick={this.onUpdatePrice.bind(this)}>Soy un producto llamado {this.state.nombre} y valgo ARS {this.state.precio}...</cite>
 
         }
+    }
+
+    ////////////////////////
+    onUpdatePrice(){
+        alert(`Si, en serio soy el componente llamado "${this.state.nombre}"`)
+        let newPrice = prompt("Ingrese nuevo precio")
+        
+        this.setState({ precio: newPrice })
     }
     
 }
 
-export default Producto
+export default Gondola
